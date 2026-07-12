@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super_secret_key_123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pc_store.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -139,7 +140,8 @@ def add_product():
         return redirect(url_for('index'))
     return render_template('add_product.html', form=form)
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, host='0.0.0.0')
