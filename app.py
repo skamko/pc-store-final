@@ -163,7 +163,7 @@ def delete_product(product_id):
         flash('თქვენ არ გაქვთ ამ მოქმედების შესრულების უფლება.', 'danger')
         return redirect(url_for('index'))
     
-    product = Product.query.get(product_id)
+ product = Product.query.get(product_id)
     if product:
         # ჯერ ვშლით ამ პროდუქტს ყველას კალათიდან, რომ ბაზამ ერორი არ ამოაგდოს
         CartItem.query.filter_by(product_id=product_id).delete()
