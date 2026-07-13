@@ -10,6 +10,10 @@
     {% for product in products %}
     <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
+            
+            <div class="text-center bg-light rounded-top">
+                <img src="{{ product.image_url }}" class="card-img-top p-3" alt="{{ product.name }}" style="height: 220px; width: 100%; object-fit: contain;">
+            </div>
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title font-weight-bold">{{ product.name }}</h5>
                 <p class="card-text text-muted">{{ product.description }}</p>
