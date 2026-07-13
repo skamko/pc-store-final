@@ -146,6 +146,35 @@ def checkout():
     db.session.commit()
     flash('გილოცავთ! გადახდა წარმატებით შესრულდა. პროდუქცია მალე გამოიგზავნება! 🎉', 'success')
     return redirect(url_for('index'))
+    # 1. პროდუქტის დეტალური გვერდი
+@app.route('/product/<int:product_id>')
+def product_detail(product_id):
+    product = Product.query.get(product_id)
+    if not product:
+        flash('პროდუქტი ვერ მოიძებნა.', 'danger')
+        return redirect(url_for('index'))
+    return render_template('product_detail.html', product=product)
+
+# 2. პროდუქტის წაშლა (მხოლოდ ადმინისთვის)
+@app.route('/delete_product/<int:product_id>')
+@login_required
+def delete_product(product_id):
+    if not current_user.is_admin:
+        flash('თქვენ არ გაქვთ ამ მოქმედების შესრულების უფლება.', 'danger')
+        return redirect(url_for('index'))
+    
+    product = Product.query.get(product_id)
+    if product:
+        # ჯერ ვშლით ამ პროდუქტს ყველას კალათიდან, რომ ბაზამ ერორი არ ამოაგდოს
+        CartItem.query.filter_by(product_id=product_id).delete()
+        # შემდეგ ვშლით თავად პროდუქტს
+        db.session.delete(product)
+        db.session.commit()
+        flash('პროდუქტი წარმატებით წაიშალა! 🗑️', 'success')
+    else:
+        flash('პროდუქტი ვერ მოიძებნა.', 'danger')
+        
+    return redirect(url_for('index'))
 
 # ================= სერვერის გაშვება =================
 with app.app_context():
