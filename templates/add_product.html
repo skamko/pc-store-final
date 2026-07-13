@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">პროდუქტის დამატება (ადმინ პანელი)</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        {{ form.name.label(class="form-control-label font-weight-bold") }}
+                        {{ form.name(class="form-control", placeholder="მაგ: NVIDIA RTX 4090") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.description.label(class="form-control-label font-weight-bold") }}
+                        {{ form.description(class="form-control", rows="4", placeholder="ჩაწერეთ პროდუქტის დეტალური მახასიათებლები...") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.price.label(class="form-control-label font-weight-bold") }}
+                        {{ form.price(class="form-control", placeholder="მაგ: 4500") }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.image_url.label(class="form-control-label font-weight-bold") }}
+                        {{ form.image_url(class="form-control", placeholder="ჩასვით სურათის პირდაპირი ლინკი ინტერნეტიდან (URL)") }}
+                        <small class="form-text text-muted">მოძებნეთ სურათი გუგლში, დააწკაპუნეთ მარჯვენა ღილაკით და აირჩიეთ "Copy image address".</small>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        {{ form.submit(class="btn btn-info btn-block btn-lg shadow-sm") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
