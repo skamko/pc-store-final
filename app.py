@@ -146,7 +146,7 @@ def checkout():
     db.session.commit()
     flash('გილოცავთ! გადახდა წარმატებით შესრულდა. პროდუქცია მალე გამოიგზავნება! 🎉', 'success')
     return redirect(url_for('index'))
-    # 1. პროდუქტის დეტალური გვერდი
+# 1. პროდუქტის დეტალური გვერდი
 @app.route('/product/<int:product_id>')
 def product_detail(product_id):
     product = Product.query.get(product_id)
@@ -163,7 +163,7 @@ def delete_product(product_id):
         flash('თქვენ არ გაქვთ ამ მოქმედების შესრულების უფლება.', 'danger')
         return redirect(url_for('index'))
     
- product = Product.query.get(product_id)
+    product = Product.query.get(product_id)
     if product:
         # ჯერ ვშლით ამ პროდუქტს ყველას კალათიდან, რომ ბაზამ ერორი არ ამოაგდოს
         CartItem.query.filter_by(product_id=product_id).delete()
